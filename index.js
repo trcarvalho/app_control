@@ -13,7 +13,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 app.get('/', function(request, response) {
-  response.render('index',{'moment':moment_2()});
+  response.render('index',{'moment':(moment.tz('Brazil/East').format()});
 });
 
 app.listen(app.get('port'), function() {
