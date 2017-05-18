@@ -5,6 +5,7 @@ block content
       table(class ="table table-striped")
         thead(class="")
           tr(class="row text-center")
+            th(class ="col-md-5" style="border-right: 1px solid #ddd") Dias da Semana
             each value in lista.days
               th(class="col-md-1") 
                 .row
@@ -21,11 +22,21 @@ block content
                           span(class="fa fa-times" style="color:red")          
         tbody 
             tr(class="row text-center")
+              th(class ="col-md-5" style="border-right: 1px solid #ddd") Dia
               each value in lista.days
                 th(class="col-md-1 text-center") #{value.work_day}
             tr(class="row")
-                each value in lista.days
-                  th(class="col-md-1 text-center") #{value.work_night}
-                    
-                
+              th(class ="col-md-5" style="border-right: 1px solid #ddd") Noite
+              each value in lista.days
+                th(class="col-md-1 text-center") #{value.work_night}
+  .row(style="margin-top:40px; border: 1px solid #ddd")
+    .col-md-3.text-center Dia concluído
+    .col-md-1.text-center
+      span(class="fa fa-check" style="color:green")
+    .col-md-3.text-center Dia em andamento                  
+    .col-md-1.text-center
+      span(class="fa fa-exclamation-circle" style="color:blue")
+    .col-md-3.text-center Dia pendente                
+    .col-md-1.text-center
+      span(class="fa fa-times" style="color:red")
                 
