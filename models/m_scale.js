@@ -1,6 +1,6 @@
 var express              = require('express');
 var path                 = require('path');
-var moment               = require('moment');
+var moment               = require('moment-timezone');
 
 exports.generate_scale = function () {
   var fs  = require('fs'),obj
@@ -10,12 +10,12 @@ exports.generate_scale = function () {
       obj_scale = JSON.parse(data)
       console.log(obj_scale);
       for (var i = 0; i < obj_scale['days'].length; i++) {
-        if(obj_scale['days'][i]< moment().weekday()){
+        if(obj_scale['days'][i]< moment.tz('Brazil/East').weekday()){
          obj_scale['days'][i]['is_last'] =true;
          obj_scale['days'][i]['is_current'] =false;
          console.log("1");
         }
-        else if (obj_scale['days'][i]== moment().weekday()) {
+        else if (obj_scale['days'][i]== moment.tz('Brazil/East').weekday()) {
           obj_scale['days'][i]['is_last'] =false;
           obj_scale['days'][i]['is_current'] =true;
           console.log("2");
