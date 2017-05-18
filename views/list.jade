@@ -1,0 +1,31 @@
+extend layout
+block content
+  .row
+    .col-md-10.col-md-offset-1
+      table(class ="table table-striped")
+        thead(class="")
+          tr(class="row text-center")
+            each value in lista.days
+              th(class="col-md-1") 
+                .row
+                  .col-md-10 #{value.name}
+                .row
+                  if value.is_last
+                      .col-md-10.text-center
+                        span(class="fa fa-check" style="color:green")
+                  else if value.is_current
+                        .col-md-10.text-center 
+                          span(class="fa fa-exclamation-circle" style="color:blue")  
+                      else
+                        .col-md-10.text-center 
+                          span(class="fa fa-times" style="color:red")          
+        tbody 
+            tr(class="row text-center")
+              each value in lista.days
+                th(class="col-md-1 text-center") #{value.work_day}
+            tr(class="row")
+                each value in lista.days
+                  th(class="col-md-1 text-center") #{value.work_night}
+                    
+                
+                
