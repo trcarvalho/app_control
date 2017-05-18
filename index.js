@@ -2,7 +2,6 @@ var express              = require('express');
 var path                 = require('path');
 var app                  = express();
 var moment               = require('moment-timezone');
-var moment_2             = require('moment');
 var rot_scale_manager    = require('./routers/scale_manager');
 var scale_manager        = require('./controllers/ci_scale')
 
@@ -13,7 +12,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 app.get('/', function(request, response) {
-  response.render('index',{'moment':(moment.tz('Brazil/East').format()});
+  response.render('index',{'moment':moment.tz('Brazil/East').format()});
 });
 
 app.listen(app.get('port'), function() {
