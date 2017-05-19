@@ -29,14 +29,23 @@ block content
               th(class ="col-md-5" style="border-right: 1px solid #ddd") Noite
               each value in lista.days
                 th(class="col-md-1 text-center") #{value.work_night}
-  .row(style="margin-top:40px; border: 1px solid #ddd")
-    .col-md-3.text-center Dia concluído
-    .col-md-1.text-center
-      span(class="fa fa-check" style="color:green")
-    .col-md-3.text-center Dia em andamento                  
-    .col-md-1.text-center
-      span(class="fa fa-exclamation-circle" style="color:blue")
-    .col-md-3.text-center Dia pendente                
-    .col-md-1.text-center
-      span(class="fa fa-times" style="color:red")
+  .row(style="margin-top:40px")
+    .col-md-3.text-center(style="border: 1px solid #ddd; border-radius:5px; background-color:#ddd")
+      .row
+        .col-md-10 Dia concluído
+        .col-md-2
+          span(class="fa fa-check" style="color:green")
+    .col-md-1
+    .col-md-3.text-center(style="border: 1px solid #ddd; border-radius:5px; background-color:#ddd")
+      .row
+        .col-md-10 Dia em andamento                  
+        .col-md-2
+          span(class="fa fa-exclamation-circle" style="color:blue")
+    .col-md-1
+    .col-md-3.text-center(style="border: 1px solid #ddd; border-radius:5px; background-color:#ddd") 
+      .row
+        .col-md-10 Dia pendente                
+        .col-md-2
+          span(class="fa fa-times" style="color:red")
+    .col-md-1
                 
