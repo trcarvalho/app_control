@@ -1,7 +1,7 @@
 var m_scale              = require('../models/m_scale');
 var express              = require('express');
 var path                 = require('path');
-var moment               = require('moment');
+var moment               = require('moment-timezone');
 var ci_scale_manager     = express.Router();
 
 ci_scale_manager.use(express.static(path.join(__dirname, '../public')))
@@ -30,12 +30,12 @@ exports.generate_scale = function(){
       if (err) throw err
       obj_scale = JSON.parse(data)
       for (var i = 0; i < obj_scale['days'].length; i++) {
-        if(obj_scale['days'][i]['number']< moment().weekday()){
+        if(obj_scale['days'][i]['number']< moment.tz('Brazil/East').weekday()){
           obj_scale['days'][i]['is_last'] =true;
           obj_scale['days'][i]['is_current'] =false;
           console.log(1);
         }
-        else if (obj_scale['days'][i]['number']== moment().weekday()) {
+        else if (obj_scale['days'][i]['number']== moment.tz('Brazil/East').weekday()) {
           obj_scale['days'][i]['is_last'] =false;
           obj_scale['days'][i]['is_current'] =true;
           console.log(2);
