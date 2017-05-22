@@ -34,7 +34,6 @@ exports.generate_scale = function () {
 ;
 
 exports.get_data = function (handle) {
-  console.log(handle);
   var fs = require('fs'),obj
   fs.readFile(path.join(__dirname, '../controllers/teste.json'), handle);
 }
