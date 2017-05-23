@@ -14,6 +14,7 @@ nav(id="header" class="navbar navbar-fixed-top" style="margin-top: 3%")
                         span(class="icon-bar")
                     a(id="brand" class="navbar-brand" href="#") Gerenciador de Escala
                 div(id="navbar" class="collapse navbar-collapse")
+                    span
                     ul(class="nav navbar-nav")
                         li(class="active")
                           a(href="/") Home
@@ -21,3 +22,16 @@ nav(id="header" class="navbar navbar-fixed-top" style="margin-top: 3%")
                           a(href="#Teste") Adicionar 
                         li
                           a(href="/scale/list") Escala
+                        li(class="dropdown")
+                          a(href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false") Dropdown 
+                           span(class="caret")
+                          ul(class="dropdown-menu")
+                            li
+                             a(href="#") Listar Remédios
+                            li(role="separator" class="divider")
+                            li
+                             a(href="#") Inserir Rémedio
+                            li(role="separator" class="divider")
+                            li
+                             a(href="#") Excluir Remédio
+          
