@@ -63,7 +63,7 @@ exports.generate_scale = function () {
       rosa  = obj_scale["person"].find(get_person.bind(obj, "Rosa"));
 
       if (i >= 1 && i <= 5) { //avaliação de segunda a sexta
-               
+        console.log(i)
         if (maria["seq_work"] >= 2 && (rita["seq_work"] == rosa["seq_work"])) { //
           
           obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",0,"Maria Helena"));
@@ -282,14 +282,19 @@ exports.generate_scale = function () {
           else{
             obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",0,"Rosa"));
             obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",false,"Rosa"));
+            obj_scale["person"].find(modify_data_persons.bind(obj,"seq_sunday",0,"Rosa"));
+            
             //dia
             obj_scale['days'][i]['work_day'] = 'Maria Helena';
             obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",maria["seq_work"]+1,"Maria Helena"));            
             obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",false,"Maria Helena"));
+            obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",maria["seq_sunday"]+1,"Maria Helena"))
             //noite
             obj_scale['days'][i]['work_night'] = 'Rita';            
             obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",rita["seq_work"]+1,"Rita"));
             obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",true,"Rita"));
+            obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",rita["seq_sunday"]+1,"Rita"))
+            
           }
       }
       else if(rita["seq_work"]>=2){
@@ -314,6 +319,8 @@ exports.generate_scale = function () {
             obj_scale['days'][i]['work_day'] = 'Maria Helena';
             obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",maria["seq_work"]+1,"Maria Helena"));            
             obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",false,"Maria Helena"));
+            obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",maria["seq_sunday"]+1,"Maria Helena"))
+            
             //noite
             obj_scale['days'][i]['work_night'] = 'Rosa';            
             obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",rosa["seq_work"]+1,"Rosa"));

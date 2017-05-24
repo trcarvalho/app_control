@@ -335,12 +335,15 @@ header.smaller nav a {
 .navbar-container {
   padding: 20px 0 20px 0;
 }
-.navbar.navbar-fixed-top.fixed-theme {
+.navbar-default.navbar.navbar-fixed-top.fixed-theme {
   border-color: #080808;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
 }
 .navbar-brand.fixed-theme {
   font-size: 18px;
+}
+.navbar .navbar-toggle {
+  border-color: black;
 }
 .navbar-container.fixed-theme {
   padding: 0;
