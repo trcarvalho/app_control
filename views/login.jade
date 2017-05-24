@@ -1,0 +1,13 @@
+extend layout
+block content
+    form(class="form-signin" action="/log/post_login" method = "post")
+        h2(class="form-signin-heading") Please sign in
+        label(for="inputEmail" class="sr-only") Email address
+        input(type="text" id="inputEmail" name = "name" class="form-control" placeholder="Email address" required="" autofocus="")
+        label(for="inputPassword" class="sr-only" ) Password
+        input(type="password" id="inputPassword" class="form-control" name="password" placeholder="pass" required="")
+        div(class="checkbox")
+          input(type="checkbox" value="remember-me" style="margin-top: auto; margin-left: 1%")
+          label Remember me
+        button(class="btn btn-lg btn-primary btn-block" type="submit") Sign in
+      

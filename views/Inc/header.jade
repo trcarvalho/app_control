@@ -1,10 +1,13 @@
 header
     div(class="container clearfix")
-        nav
-            a(href="") Login
-          
-
-nav(id="header" class="navbar navbar-fixed-top" style="margin-top: 3%")
+        .row(style="margin-top:-10%; margin-left: 70%")
+            .col-md-6(style="margin-top: 4%; color: white")
+                i(class="fa fa-user fa-2x" aria-hidden="true")
+                p(style="margin-top: -18px;margin-left: 38%;font-size: larger;") #{name}
+            .col-md-6
+                nav
+                    a(class="navbar-brand" href="/log/logout" ) Sair
+nav(id="header" class="navbar navbar-fixed-top" style="margin-top: 10%")
             div(id="header-container" class="container navbar-container")
                 div(class="navbar-header")
                     button(type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar")
@@ -18,20 +21,21 @@ nav(id="header" class="navbar navbar-fixed-top" style="margin-top: 3%")
                     ul(class="nav navbar-nav")
                         li(class="active")
                           a(href="/") Home
-                        li
-                          a(href="#Teste") Adicionar 
-                        li
-                          a(href="/scale/list") Escala
                         li(class="dropdown")
                           a(href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false") Dropdown 
                            span(class="caret")
                           ul(class="dropdown-menu")
                             li
-                             a(href="#") Listar Remédios
+                             a(href="/remedio/listar") Listar Remédios
                             li(role="separator" class="divider")
                             li
-                             a(href="#") Inserir Rémedio
+                             a(href="/remedio/add") Inserir Rémedio
                             li(role="separator" class="divider")
                             li
                              a(href="#") Excluir Remédio
+                        li
+                          a(href="/scale/list") Escala
+                        li
+                          a(href="/log/login") Logar-se 
+                        
           
