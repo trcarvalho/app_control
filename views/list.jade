@@ -1,0 +1,72 @@
+extend layout
+block content
+  .row
+    .col-md-10.col-md-offset-1
+      table(class ="table table-striped")
+        thead(class="")
+          tr(class="row text-center")
+            th(class ="col-md-5" style="border-right: 1px solid #ddd") Dias da Semana
+            each value in lista.days
+              th(class="col-md-1") 
+                .row
+                  .col-md-10 #{value.name}
+                .row
+                  if value.is_last
+                      .col-md-10.text-center
+                        span(class="fa fa-check" style="color:green")
+                  else if value.is_current
+                        .col-md-10.text-center 
+                          span(class="fa fa-exclamation-circle" style="color:blue")  
+                      else
+                        .col-md-10.text-center 
+                          span(class="fa fa-times" style="color:red")          
+        tbody 
+            tr(class="row text-center")
+              th(class ="col-md-5" style="border-right: 1px solid #ddd") Dia
+              each value in lista.days
+                th(class="col-md-1 text-center") #{value.work_day}
+            tr(class="row")
+              th(class ="col-md-5" style="border-right: 1px solid #ddd") Noite
+              each value in lista.days
+                th(class="col-md-1 text-center") #{value.work_night}
+  .row(style="margin-top:40px")
+    .col-md-11.col-md-offset-1
+      .row
+        .col-md-3.text-center(style="border: 1px solid #ddd; border-radius:5px; background-color:#ddd")
+          .row
+            .col-md-10 Dia concluído
+            .col-md-2
+              span(class="fa fa-check" style="color:green")
+            .col-md-1
+        .col-md-3.text-center(style="border: 1px solid #ddd; border-radius:5px; background-color:#ddd")
+          .row
+            .col-md-10 Dia em andamento                  
+            .col-md-2
+              span(class="fa fa-exclamation-circle" style="color:blue")
+            .col-md-1
+        .col-md-3.text-center(style="border: 1px solid #ddd; border-radius:5px; background-color:#ddd") 
+          .row
+            .col-md-10 Dia pendente                
+            .col-md-2
+              span(class="fa fa-times" style="color:red")
+            .col-md-1
+  //- .row(style="margin-top:40px")
+  //-   .col-md-3.text-center(style="border: 1px solid #ddd; border-radius:5px; background-color:#ddd")
+  //-     .row
+  //-       .col-md-10 Dia concluído
+  //-       .col-md-2
+  //-         span(class="fa fa-check" style="color:green")
+  //-   .col-md-1
+  //-   .col-md-3.text-center(style="border: 1px solid #ddd; border-radius:5px; background-color:#ddd")
+  //-     .row
+  //-       .col-md-10 Dia em andamento                  
+  //-       .col-md-2
+  //-         span(class="fa fa-exclamation-circle" style="color:blue")
+  //-   .col-md-1
+  //-   .col-md-3.text-center(style="border: 1px solid #ddd; border-radius:5px; background-color:#ddd") 
+  //-     .row
+  //-       .col-md-10 Dia pendente                
+  //-       .col-md-2
+  //-         span(class="fa fa-times" style="color:red")
+  //-   .col-md-1
+                

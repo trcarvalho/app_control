@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "name": "app_control",
   "scripts": {
   },
@@ -13,5 +14,7 @@
     {
       "url": "heroku/nodejs"
     }
-  ]
+  ],
+  "logo": "https://cdn.rawgit.com/heroku/node-js-getting-started/master/public/node.svg",
+  "keywords": ["node", "express", "heroku"]
 }

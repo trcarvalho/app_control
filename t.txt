@@ -1,0 +1,16 @@
+[OKAY] Loaded ENV .env File as KEY=VALUE Format
+8:49:45 PM web.1 |  /home/tainan/projetos/node/appcontrol/models/m_login.js:1
+8:49:45 PM web.1 |  (function (exports, require, module, __filename, __dirname) { ar express      
+8:49:45 PM web.1 |                                                                   ^^^^^^^
+8:49:45 PM web.1 |  SyntaxError: Unexpected identifier
+8:49:45 PM web.1 |      at Module._compile (module.js:439:25)
+8:49:45 PM web.1 |      at Object.Module._extensions..js (module.js:474:10)
+8:49:45 PM web.1 |      at Module.load (module.js:356:32)
+8:49:45 PM web.1 |      at Function.Module._load (module.js:312:12)
+8:49:45 PM web.1 |      at Module.require (module.js:364:17)
+8:49:45 PM web.1 |      at require (module.js:380:17)
+8:49:45 PM web.1 |      at Object.<anonymous> (/home/tainan/projetos/node/appcontrol/controllers/ci_login.js:1:78)
+8:49:45 PM web.1 |      at Module._compile (module.js:456:26)
+8:49:45 PM web.1 |      at Object.Module._extensions..js (module.js:474:10)
+8:49:45 PM web.1 |      at Module.load (module.js:356:32)
+[DONE] Killing all processes with signal  null
