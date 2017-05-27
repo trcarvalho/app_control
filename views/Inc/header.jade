@@ -1,12 +1,15 @@
 header
     div(class="container clearfix")
-        .row(style="margin-top:-10%; margin-left: 70%")
+        .row(style="margin-top:-5%; margin-left: 76%")
             .col-md-6(style="margin-top: 4%; color: white")
                 i(class="fa fa-user fa-2x" aria-hidden="true")
                 p(style="margin-top: -18px;margin-left: 38%;font-size: larger;") #{name}
             .col-md-6
                 nav
-                    a(class="navbar-brand" href="/log/logout" ) Sair
+                    if name
+                      a(class="navbar-brand" href="/log/logout" ) Sair
+                    else
+                      a(class="navbar-brand" href="/log/login" ) login
 nav(id="header" class="navbar navbar-fixed-top" style="margin-top: 10%")
             div(id="header-container" class="container navbar-container")
                 div(class="navbar-header")
@@ -35,7 +38,7 @@ nav(id="header" class="navbar navbar-fixed-top" style="margin-top: 10%")
                              a(href="#") Excluir Remédio
                         li
                           a(href="/scale/list") Escala
-                        li
-                          a(href="/log/login") Logar-se 
+                        //- li
+                          //- a(href="/log/login") Logar-se 
                         
           

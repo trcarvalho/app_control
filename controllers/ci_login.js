@@ -25,8 +25,8 @@ exports.post_login = function (req, res){
         url = req.protocol + '://' + req.get('host')
         res.redirect(url);
     });
-    
-} 
+
+}
 
 exports.is_logged = function(req, res, next){
     if(req.session.is_logged){
@@ -39,7 +39,6 @@ exports.is_logged = function(req, res, next){
 }
 
 function verify_account(req,none3,obj){
-    console.log(obj,req.body)
     if(req.body.name == obj['user']){
         if(req.body.password == obj['pass']){
             req.session.is_logged =true;
@@ -53,4 +52,4 @@ function verify_account(req,none3,obj){
     else{
         req.session.msg = "Usuário inválido"
     }
-} 
+}

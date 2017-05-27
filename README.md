@@ -9,13 +9,14 @@ This application supports the [Getting Started with Node on Heroku](https://devc
 Make sure you have [Node.js](http://nodejs.org/) and the [Heroku CLI](https://cli.heroku.com/) installed.
 
 ```sh
-$ git clone git@github.com:heroku/node-js-getting-started.git # or clone your own fork
-$ cd node-js-getting-started
-$ npm install
-$ npm start
+# $ git clone git@github.com:heroku/appcontrol.git # or clone your own fork
+# $ cd node-js-getting-started
+# $ npm install
+# $ npm start
 ```
 
 Your app should now be running on [localhost:5000](http://localhost:5000/).
+You show de app running in [appcontrol](https://appcontrol.herokuapp.com).
 
 ## Deploying to Heroku
 

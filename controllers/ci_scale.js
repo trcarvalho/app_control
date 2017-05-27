@@ -16,7 +16,8 @@ exports.list_scale = function (req, res) {
   m_scale.get_data(function handle(err, data) {
     var obj_scale = JSON.parse(data)
     res.status(200).render('list', {
-      'lista': obj_scale
+      'lista': obj_scale,
+      'name':req.session.name
     });
     res.end();
   })
@@ -39,12 +40,12 @@ exports.generate_scale = function () {
     // Verfifca se houve mudança de semana e se é o primeiro dia
     if((obj_scale['current_week'] != true_current_week)&&(moment.tz('Brazil/East').weekday() == 0)){ // verifica se mudou a semana
       is_gerenate_scale = true;
-      obj_scale['current_week'] = true_current_week;  
+      obj_scale['current_week'] = true_current_week;
     }
-  
+
 
     for (var i = 0; i < obj_scale['days'].length; i++) {
-      // Faz  mudança de indicação da tabela 
+      // Faz  mudança de indicação da tabela
       if (obj_scale['days'][i]['number'] < moment.tz('Brazil/East').weekday()) {
         obj_scale['days'][i]['is_last'] = true;
         obj_scale['days'][i]['is_current'] = false;
@@ -65,36 +66,36 @@ exports.generate_scale = function () {
       if (i >= 1 && i <= 5) { //avaliação de segunda a sexta
         console.log(i)
         if (maria["seq_work"] >= 2 && (rita["seq_work"] == rosa["seq_work"])) { //
-          
+
           obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",0,"Maria Helena"));
           obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",false,"Maria Helena"));
-          
+
           if (i == 0) {
             j = 6;
           } else {
             j = i - 1;
           }
-          
+
           if((obj_scale['days'][j]['work_day'] == 'Rita' || obj_scale['days'][j]['work_night']=='Rita')&&(obj_scale['days'][j]['work_day']=='Rosa'||obj_scale['days'][j]['work_night']=='Rosa')){ // ambas trabalharam no dia anterior
-            
+
             if (rosa["work_night"]) { // trabalhou a noite?
             //dia
             obj_scale['days'][i]['work_day'] = 'Rita';
-            obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",rita["seq_work"]+1,"Rita"));            
+            obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",rita["seq_work"]+1,"Rita"));
             obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",false,"Rita"));
              //noite
-            obj_scale['days'][i]['work_night'] = 'Rosa';            
+            obj_scale['days'][i]['work_night'] = 'Rosa';
             obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",rosa["seq_work"]+1,"Rosa"));
             obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",true,"Rosa"));
-                        
+
             }
             else{
              //dia
             obj_scale['days'][i]['work_day'] = 'Rosa';
-            obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",rosa["seq_work"]+1,"Rosa"));            
+            obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",rosa["seq_work"]+1,"Rosa"));
             obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",false,"Rosa"));
              //noite
-            obj_scale['days'][i]['work_night'] = 'Rita';            
+            obj_scale['days'][i]['work_night'] = 'Rita';
             obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",rosa["seq_work"]+1,"Rita"));
             obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",true,"Rita"));
             }
@@ -103,25 +104,25 @@ exports.generate_scale = function () {
             if(obj_scale['days'][j]['work_day'] == 'Rosa' || obj_scale['days'][j]['work_day'] == 'Rosa'){ // Trabalhou no dia anterior
                //dia
             obj_scale['days'][i]['work_day'] = 'Rita';
-            obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",rita["seq_work"]+1,"Rita"));            
+            obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",rita["seq_work"]+1,"Rita"));
             obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",false,"Rita"));
              //noite
-            obj_scale['days'][i]['work_night'] = 'Rosa';            
+            obj_scale['days'][i]['work_night'] = 'Rosa';
             obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",rosa["seq_work"]+1,"Rosa"));
             obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",true,"Rosa"));
             }
             else{
                //dia
             obj_scale['days'][i]['work_day'] = 'Rosa';
-            obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",rosa["seq_work"]+1,"Rosa"));            
+            obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",rosa["seq_work"]+1,"Rosa"));
             obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",false,"Rosa"));
              //noite
-            obj_scale['days'][i]['work_night'] = 'Rita';            
+            obj_scale['days'][i]['work_night'] = 'Rita';
             obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",rita["seq_work"]+1,"Rita"));
             obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",true,"Rita"));
             }
           }
-          
+
         }
         else if (maria["seq_work"] == 2 && (rita["seq_work"] > rosa["seq_work"])) { // rita trabalhou mais que rosa
           obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",0,"Maria Helena"));
@@ -129,23 +130,23 @@ exports.generate_scale = function () {
 
           //dia
           obj_scale['days'][i]['work_day'] = 'Rosa';
-          obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",rosa["seq_work"]+1,"Rosa"));            
+          obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",rosa["seq_work"]+1,"Rosa"));
           obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",false,"Rosa"));
              //noite
-          obj_scale['days'][i]['work_night'] = 'Rita';            
+          obj_scale['days'][i]['work_night'] = 'Rita';
           obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",rita["seq_work"]+1,"Rita"));
           obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",true,"Rita"));
-        } 
+        }
         else if(maria["seq_work"] == 2 && (rita["seq_work"] < rosa["seq_work"])){ // rosa trabalhou mais que a rita
           obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",0,"Maria Helena"));
           obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",false,"Maria Helena"));
 
           //dia
           obj_scale['days'][i]['work_day'] = 'Rita';
-          obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",rita["seq_work"]+1,"Rita"));            
+          obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",rita["seq_work"]+1,"Rita"));
           obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",false,"Rita"));
              //noite
-          obj_scale['days'][i]['work_night'] = 'Rosa';            
+          obj_scale['days'][i]['work_night'] = 'Rosa';
           obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",rosa["seq_work"]+1,"Rosa"));
           obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",true,"Rosa"));
         }
@@ -155,10 +156,10 @@ exports.generate_scale = function () {
 
           //dia
           obj_scale['days'][i]['work_day'] = 'Rita';
-          obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",rita["seq_work"]+1,"Rita"));            
+          obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",rita["seq_work"]+1,"Rita"));
           obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",false,"Rita"));
           //noite
-          obj_scale['days'][i]['work_night'] = 'Maria Helena';            
+          obj_scale['days'][i]['work_night'] = 'Maria Helena';
           obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",maria["seq_work"]+1,"Maria Helena"));
           obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",true,"Maria Helena"));
         }
@@ -168,10 +169,10 @@ exports.generate_scale = function () {
 
           //dia
           obj_scale['days'][i]['work_day'] = 'Rosa';
-          obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",rosa["seq_work"]+1,"Rosa"));            
+          obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",rosa["seq_work"]+1,"Rosa"));
           obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",false,"Rosa"));
           //noite
-          obj_scale['days'][i]['work_night'] = 'Maria Helena';            
+          obj_scale['days'][i]['work_night'] = 'Maria Helena';
           obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",maria["seq_work"]+1,"Maria Helena"));
           obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",true,"Maria Helena"));
         }
@@ -182,29 +183,29 @@ exports.generate_scale = function () {
             j = i - 1;
           }
           if((obj_scale['days'][j]['work_day'] == 'Rita' || obj_scale['days'][j]['work_night']=='Rita')&&(obj_scale['days'][j]['work_day']=='Rosa'||obj_scale['days'][j]['work_night']=='Rosa')){ // ambas trabalharam no dia anterior
-            
+
             if (rosa["work_night"]) { // trabalhou a noite?
               obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",0,"Rosa"));
               obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",false,"Rosa"));
               //dia
               obj_scale['days'][i]['work_day'] = 'Rita';
-              obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",rita["seq_work"]+1,"Rita"));            
+              obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",rita["seq_work"]+1,"Rita"));
               obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",false,"Rita"));
               //noite
-              obj_scale['days'][i]['work_night'] = 'Maria Helena';            
+              obj_scale['days'][i]['work_night'] = 'Maria Helena';
               obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",maria["seq_work"]+1,"Maria Helena"));
               obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",true,"Maria Helena"));
-                        
+
             }
             else{
               obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",0,"Rita"));
               obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",false,"Rita"));
               //dia
               obj_scale['days'][i]['work_day'] = 'Rosa';
-              obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",rosa["seq_work"]+1,"Rosa"));            
+              obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",rosa["seq_work"]+1,"Rosa"));
               obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",false,"Rosa"));
               //noite
-              obj_scale['days'][i]['work_night'] = 'Maria Helena';            
+              obj_scale['days'][i]['work_night'] = 'Maria Helena';
               obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",maria["seq_work"]+1,"Maria Helena"));
               obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",true,"Maria Helena"));
             }
@@ -212,26 +213,26 @@ exports.generate_scale = function () {
           else{
             if(obj_scale['days'][j]['work_day'] == 'Rosa' || obj_scale['days'][j]['work_day'] == 'Rosa'){ // Trabalhou no dia anterior
                //dia
-              obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",0,"Rosa"));            
+              obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",0,"Rosa"));
               obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",false,"Rosa"));
 
               obj_scale['days'][i]['work_day'] = 'Rita';
-              obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",rita["seq_work"]+1,"Rita"));            
+              obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",rita["seq_work"]+1,"Rita"));
               obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",false,"Rita"));
               //noite
-              obj_scale['days'][i]['work_night'] = 'Maria Helena';            
+              obj_scale['days'][i]['work_night'] = 'Maria Helena';
               obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",maria["seq_work"]+1,"Maria Helena"));
               obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",true,"Maria Helena"));
             }
             else{
-              obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",0,"Rita"));            
+              obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",0,"Rita"));
               obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",false,"Rita"));
               //dia
               obj_scale['days'][i]['work_day'] = 'Rosa';
-              obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",rosa["seq_work"]+1,"Rosa"));            
+              obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",rosa["seq_work"]+1,"Rosa"));
               obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",false,"Rosa"));
               //noite
-              obj_scale['days'][i]['work_night'] = 'Maria Helena';            
+              obj_scale['days'][i]['work_night'] = 'Maria Helena';
               obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",maria["seq_work"]+1,"Maria Helena"));
               obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",true,"Maria Helena"));
             }
@@ -242,10 +243,10 @@ exports.generate_scale = function () {
           obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",false,"Rita"));
           //dia
           obj_scale['days'][i]['work_day'] = 'Rosa';
-          obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",rosa["seq_work"]+1,"Rosa"));            
+          obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",rosa["seq_work"]+1,"Rosa"));
           obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",false,"Rosa"));
           //noite
-          obj_scale['days'][i]['work_night'] = 'Maria Helena';            
+          obj_scale['days'][i]['work_night'] = 'Maria Helena';
           obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",maria["seq_work"]+1,"Maria Helena"));
           obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",true,"Maria Helena"));
         }
@@ -254,16 +255,46 @@ exports.generate_scale = function () {
           obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",false,"Rosa"));
           //dia
           obj_scale['days'][i]['work_day'] = 'Rita';
-          obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",rita["seq_work"]+1,"Rita"));            
+          obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",rita["seq_work"]+1,"Rita"));
           obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",false,"Rita"));
           //noite
-          obj_scale['days'][i]['work_night'] = 'Maria Helena';            
+          obj_scale['days'][i]['work_night'] = 'Maria Helena';
           obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",maria["seq_work"]+1,"Maria Helena"));
           obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",true,"Maria Helena"));
         }
 
       }
       // Apartir daqui a avaliação é do sabado e  do domingo
+
+      else if (maria["seq_sunday"]==3 &&  i==0) {
+        obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",0,"Maria Helena"));
+        obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",false,"Maria Helena"));
+        if(rosa["work_night"]==true){
+          //dia
+          obj_scale['days'][i]['work_day'] = 'Rita';
+          obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",rita["seq_work"]+1,"Rita"));
+          obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",false,"Rita"));
+          //noite
+          obj_scale['days'][i]['work_night'] = 'Rosa';
+          obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",rosa["seq_work"]+1,"Rosa"));
+          obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",true,"Rosa"));
+        }
+        else{
+          //dia
+          obj_scale['days'][i]['work_day'] = 'Rosa';
+          obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",rosa["seq_work"]+1,"Rosa"));
+          obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",false,"Rosa"));
+          //noite
+          obj_scale['days'][i]['work_night'] = 'Rita';
+          obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",rita["seq_work"]+1,"Rita"));
+          obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",true,"Rita"));
+        }
+
+        obj_scale["person"].find(modify_data_persons.bind(obj,"seq_sunday",rosa["seq_sunday"]+1,"Rosa"));
+        obj_scale["person"].find(modify_data_persons.bind(obj,"seq_sunday",rita["seq_sunday"]+1,"Rita"));
+        obj_scale["person"].find(modify_data_persons.bind(obj,"seq_sunday",0,"Maria Helena"));
+
+      }
       else if(rosa["seq_work"]>=2){
           if(i==6 && maria["work_night"]){
 
@@ -271,30 +302,38 @@ exports.generate_scale = function () {
             obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",false,"Maria Helena"));
             //dia
             obj_scale['days'][i]['work_day'] = 'Rita';
-            obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",rita["seq_work"]+1,"Rita"));            
+            obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",rita["seq_work"]+1,"Rita"));
             obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",false,"Rita"));
             //noite
-            obj_scale['days'][i]['work_night'] = 'Rosa';            
+            obj_scale['days'][i]['work_night'] = 'Rosa';
             obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",rosa["seq_work"]+1,"Rosa"));
             obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",true,"Rosa"));
+
+            obj_scale["person"].find(modify_data_persons.bind(obj,"seq_sunday",rosa["seq_sunday"]+1,"Rosa"));
+            obj_scale["person"].find(modify_data_persons.bind(obj,"seq_sunday",maria["seq_sunday"]+1,"Maria Helena"));
+            obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",0,"Rita"));
 
           }
           else{
             obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",0,"Rosa"));
             obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",false,"Rosa"));
             obj_scale["person"].find(modify_data_persons.bind(obj,"seq_sunday",0,"Rosa"));
-            
+
             //dia
             obj_scale['days'][i]['work_day'] = 'Maria Helena';
-            obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",maria["seq_work"]+1,"Maria Helena"));            
+            obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",maria["seq_work"]+1,"Maria Helena"));
             obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",false,"Maria Helena"));
             obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",maria["seq_sunday"]+1,"Maria Helena"))
             //noite
-            obj_scale['days'][i]['work_night'] = 'Rita';            
+            obj_scale['days'][i]['work_night'] = 'Rita';
             obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",rita["seq_work"]+1,"Rita"));
             obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",true,"Rita"));
-            obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",rita["seq_sunday"]+1,"Rita"))
-            
+            obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",rita["seq_sunday"]+1,"Rita"));
+
+            obj_scale["person"].find(modify_data_persons.bind(obj,"seq_sunday",0,"Rosa"));
+            obj_scale["person"].find(modify_data_persons.bind(obj,"seq_sunday",rita["seq_sunday"]+1,"Rita"));
+            obj_scale["person"].find(modify_data_persons.bind(obj,"seq_sunday",maria["seq_sunday"]+1,"+Maria Helena"));
+
           }
       }
       else if(rita["seq_work"]>=2){
@@ -304,10 +343,10 @@ exports.generate_scale = function () {
             obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",false,"Maria Helena"));
             //dia
             obj_scale['days'][i]['work_day'] = 'Rosa';
-            obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",rosa["seq_work"]+1,"Rosa"));            
+            obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",rosa["seq_work"]+1,"Rosa"));
             obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",false,"Rosa"));
             //noite
-            obj_scale['days'][i]['work_night'] = 'Rita';            
+            obj_scale['days'][i]['work_night'] = 'Rita';
             obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",rita["seq_work"]+1,"Rita"));
             obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",true,"Rita"));
 
@@ -317,16 +356,21 @@ exports.generate_scale = function () {
             obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",false,"Rita"));
             //dia
             obj_scale['days'][i]['work_day'] = 'Maria Helena';
-            obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",maria["seq_work"]+1,"Maria Helena"));            
+            obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",maria["seq_work"]+1,"Maria Helena"));
             obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",false,"Maria Helena"));
             obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",maria["seq_sunday"]+1,"Maria Helena"))
-            
             //noite
-            obj_scale['days'][i]['work_night'] = 'Rosa';            
+            obj_scale['days'][i]['work_night'] = 'Rosa';
             obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",rosa["seq_work"]+1,"Rosa"));
             obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",true,"Rosa"));
+
+            obj_scale["person"].find(modify_data_persons.bind(obj,"seq_sunday",0,"Rita"));
+            obj_scale["person"].find(modify_data_persons.bind(obj,"seq_sunday",rosa["seq_sunday"]+1,"Rosa"));
+            obj_scale["person"].find(modify_data_persons.bind(obj,"seq_sunday",maria["seq_sunday"]+1,"Maria Helena"));
+
           }
       }
+
       else if(rita["seq_work"] == rosa["seq_work"]){
          if (i == 0) {
             j = 6;
@@ -339,10 +383,10 @@ exports.generate_scale = function () {
               obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",false,"Maria Helena"));
               //dia
               obj_scale['days'][i]['work_day'] = 'Rita';
-              obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",rita["seq_work"]+1,"Rita"));            
+              obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",rita["seq_work"]+1,"Rita"));
               obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",false,"Rita"));
               //noite
-              obj_scale['days'][i]['work_night'] = 'Rosa';            
+              obj_scale['days'][i]['work_night'] = 'Rosa';
               obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",rosa["seq_work"]+1,"Rosa"));
               obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",true,"Rosa"));
             }
@@ -351,62 +395,81 @@ exports.generate_scale = function () {
               obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",false,"Maria Helena"));
               //dia
               obj_scale['days'][i]['work_day'] = 'Rosa';
-              obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",rosa["seq_work"]+1,"Rosa"));            
+              obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",rosa["seq_work"]+1,"Rosa"));
               obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",false,"Rosa"));
               //noite
-              obj_scale['days'][i]['work_night'] = 'Rita';            
+              obj_scale['days'][i]['work_night'] = 'Rita';
               obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",rita["seq_work"]+1,"Rita"));
               obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",true,"Rita"));
             }
         }
+
         else if(obj_scale['days'][j]['work_day']=='Rosa'||obj_scale['days'][j]['work_night']=='Rosa'){
            obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",0,"Maria Helena"));
            obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",false,"Maria Helena"));
            //dia
            obj_scale['days'][i]['work_day'] = 'Rita';
-           obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",rita["seq_work"]+1,"Rita"));            
+           obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",rita["seq_work"]+1,"Rita"));
            obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",false,"Rita"));
            //noite
-           obj_scale['days'][i]['work_night'] = 'Rosa';            
+           obj_scale['days'][i]['work_night'] = 'Rosa';
            obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",rosa["seq_work"]+1,"Rosa"));
-           obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",true,"Rosa"));  
+           obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",true,"Rosa"));
         }
         else{
             obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",0,"Maria Helena"));
             obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",false,"Maria Helena"));
             //dia
             obj_scale['days'][i]['work_day'] = 'Rosa';
-            obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",rosa["seq_work"]+1,"Rosa"));            
+            obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",rosa["seq_work"]+1,"Rosa"));
             obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",false,"Rosa"));
             //noite
-            obj_scale['days'][i]['work_night'] = 'Rita';            
+            obj_scale['days'][i]['work_night'] = 'Rita';
             obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",rita["seq_work"]+1,"Rita"));
             obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",true,"Rita"));
         }
+        if(j==6){// dia anterior sabado,logo atual domingo
+          obj_scale["person"].find(modify_data_persons.bind(obj,"seq_sunday",rita["seq_sunday"]+1,"Rita"));
+          obj_scale["person"].find(modify_data_persons.bind(obj,"seq_sunday",rosa["seq_sunday"]+1,"Rosa"));
+          obj_scale["person"].find(modify_data_persons.bind(obj,"seq_sunday",0,"Maria Helena"));
+        }
       }
+
       else if(rita["seq_work"]>rosa["seq_work"]){
         obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",0,"Maria Helena"));
         obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",false,"Maria Helena"));
         //dia
         obj_scale['days'][i]['work_day'] = 'Rosa';
-        obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",rosa["seq_work"]+1,"Rosa"));            
+        obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",rosa["seq_work"]+1,"Rosa"));
         obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",false,"Rosa"));
         //noite
-        obj_scale['days'][i]['work_night'] = 'Rita';            
+        obj_scale['days'][i]['work_night'] = 'Rita';
         obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",rita["seq_work"]+1,"Rita"));
         obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",true,"Rita"));
+        if(i==0){
+          obj_scale["person"].find(modify_data_persons.bind(obj,"seq_sunday",rita["seq_sunday"]+1,"Rita"));
+          obj_scale["person"].find(modify_data_persons.bind(obj,"seq_sunday",rosa["seq_sunday"]+1,"Rosa"));
+          obj_scale["person"].find(modify_data_persons.bind(obj,"seq_sunday",0,"Maria Helena"));
+        }
       }
+
       else{
         obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",0,"Maria Helena"));
         obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",false,"Maria Helena"));
+
         //dia
         obj_scale['days'][i]['work_day'] = 'Rita';
-        obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",rita["seq_work"]+1,"Rita"));            
+        obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",rita["seq_work"]+1,"Rita"));
         obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",false,"Rita"));
         //noite
-        obj_scale['days'][i]['work_night'] = 'Rosa';            
+        obj_scale['days'][i]['work_night'] = 'Rosa';
         obj_scale["person"].find(modify_data_persons.bind(obj,"seq_work",rosa["seq_work"]+1,"Rosa"));
         obj_scale["person"].find(modify_data_persons.bind(obj,"work_night",true,"Rosa"));
+        if(i==0){
+          obj_scale["person"].find(modify_data_persons.bind(obj,"seq_sunday",rita["seq_sunday"]+1,"Rita"));
+          obj_scale["person"].find(modify_data_persons.bind(obj,"seq_sunday",rosa["seq_sunday"]+1,"Rosa"));
+          obj_scale["person"].find(modify_data_persons.bind(obj,"seq_sunday",0,"Maria Helena"));
+        }
       }
     }
 
@@ -417,7 +480,7 @@ exports.generate_scale = function () {
   }
 }
 
-function get_person(name, element) { // busca o objeto referente as funcionárias       
+function get_person(name, element) { // busca o objeto referente as funcionárias
   return element['name'] === name
 }
 
